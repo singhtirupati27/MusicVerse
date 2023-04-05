@@ -49,7 +49,7 @@
             <input type="checkbox" name="genre[]" id="hiphop" value="Hip Hop">
             <label for="hiphop">Hip Hop</label>
             <input type="checkbox" name="genre[]" id="others" value="Others">
-            <label for="rap">Others</label>
+            <label for="others">Others</label>
           </div>
 
           <div class="form-input">

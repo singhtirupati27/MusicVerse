@@ -30,11 +30,11 @@
 
           $validateData->validateEmail($_POST["email"]);
           $validateData->validateContact($_POST["phone"]);
-          $validateData->validateInterest($_POST["genre"]);
+          $validateData->validateInterest($_POST);
           // Disabled email verification using api as it taking time to receive response.
           // $email->verifyEmail($_POST["email"]);
 
-          if($validateData->emailErr == "" && $validateData->phoneErr == "" && $validateData->genderErr == "") {
+          if($validateData->emailErr == "" && $validateData->phoneErr == "" && $validateData->interestErr == "") {
             if($email->emailErr == "") {
               if($database->updateProfile($_SESSION["email"], $_POST["email"], $_POST["phone"], $_POST["genre"])) {
                 echo "<script>alert('Profile updated successfully!')</script>";

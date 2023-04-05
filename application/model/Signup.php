@@ -12,6 +12,7 @@
     public string $emailErr = "";
     public string $passwordErr = "";
     public string $cnfpasswordErr = "";
+    public int $dataValid = 1;
 
     /**
      * Function to validate full name.
@@ -39,30 +40,26 @@
     /**
      * Function to check gender value.
      * 
-     *  @param string gender
-     *    Contains gender value.
+     *  @param array $user_data
+     *    Contains user all data.
      */
-    public function validateGender($gender) {
-      if(empty($gender)) {
+    public function validateGender($user_data) {
+      if(!isset($user_data["gender"])) {
         $this->genderErr = "Gender is required";
-      }
-      else {
-        $this->genderErr = "";
+        $this->dataValid = 0;
       }
     }
 
     /**
      * Function to check whether field contains one value or not.
      * 
-     *  @param array $interest
-     *    Hold interest values.
+     *  @param array $user_data
+     *    Hold user all data.
      */
-    public function validateInterest($interest) {
-      if(empty($interest)) {
+    public function validateInterest($user_data) {
+      if(!isset($user_data["genre"])) {
         $this->interestErr = "Please select at least 1 genre";
-      }
-      else {
-        $this->interestErr = "";
+        $this->dataValid = 0;
       }
     }
 
@@ -153,6 +150,32 @@
       }
       else {
         return TRUE;
+      }
+    }
+
+    /**
+     * Function to check user registration data.
+     * 
+     *  @param array $user_data
+     *    Contains all user information.
+     * 
+     *  @return bool
+     *    True if all fields are valid, false if not.
+     */
+    public function checkRegistration($user_data) {
+      $this->validateName($user_data["name"]);
+      $this->validateGender($user_data);
+      $this->validateInterest($user_data);
+      $this->validateContact($user_data["phone"]);
+      $this->validateEmail($user_data["email"]);
+      $this->validatePassword($user_data["password"]);
+      $this->matchPassword($user_data["password"], $user_data["cnfpassword"]);
+
+      if($this->dataValid == 1) {
+        return TRUE;
+      }
+      else {
+        return FALSE;
       }
     }
 

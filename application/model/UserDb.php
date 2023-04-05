@@ -193,42 +193,30 @@
     /**
      * Function to register new user data into table.
      *  
-     * @param string $email
-     *    Contains user login email.
-     *
-     *  @param string $password
-     *    Contains user login password.
-     * 
-     *  @param string $name
-     *    Contains user full name.
-     * 
-     *  @param string $gender 
-     *    Contains user gender.
-     *  
-     *  @param string $interest
-     *    Contains user interests.
+     * @param array $user_data
+     *    Contains user all data.
      * 
      *  @return bool
      *    It will return TRUE if query has been executed successfully, FALSE if email already exists.
      */
-    public function registerUser($email, $password, $name, $gender, $phone, $interest) {
+    public function registerUser($user_data) {
       $this->databaseConnet();
-      $genre = $this->genreString($interest);
+      $genre = $this->genreString($user_data["genre"]);
 
       try {
         $query = $this->connectionData->prepare("INSERT INTO admin (user_email, user_password)
          VALUES (:email, :password)");
 
-        $query->bindParam(':email', $email);
-        $query->bindParam(':password', $password);
+        $query->bindParam(':email', $user_data["email"]);
+        $query->bindParam(':password', $user_data["password"]);
 
         $query->execute();
 
         $query = $this->connectionData->prepare("INSERT INTO user_info(user_name, user_gender, user_phone, user_interest)
         VALUES (:name, :gender, :phone, :interest)");
-        $query->bindParam(':name', $name);
-        $query->bindParam(':gender', $gender);
-        $query->bindParam(':phone', $phone);
+        $query->bindParam(':name', $user_data["name"]);
+        $query->bindParam(':gender', $user_data["gender"]);
+        $query->bindParam(':phone', $user_data["phone"]);
         $query->bindParam(':interest', $genre);
 
         $query->execute();

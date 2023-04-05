@@ -112,7 +112,7 @@ function validatePassword() {
 }
 
 /**
- * Function to match passworn and confirm password.
+ * Function to match password and confirm password.
  */
 function matchPassword() {
   var password = document.getElementById("password").value;
@@ -124,24 +124,10 @@ function matchPassword() {
       invalidInput("cnfpassword", "submit-btn");
     }
     else {
-      validInput("cnfpassword", "checkPass", "submit-btn");
+      validInput("cnfpassword", "checkCnfPass", "submit-btn");
     }
   }
   else {
     emptyField("checkCnfPass", "submit-btn");
   }
 }
-
-// function checkGender() {
-//   var gender = form.querySelectorAll('input[name="gender"]:checked');
-//   if (!gender.length) {
-//     document.getElementById("checkGender").innerHTML = "Please select your gender.";
-//     document.getElementById("submit-btn").disabled = true;
-//     document.getElementById("submit-btn").style.backgroundColor = 'lightgrey';
-//   }
-//   else {
-//     document.getElementById("checkGender").innerHTML = "";
-//     document.getElementById("submit-btn").disabled = false;
-//     document.getElementById("submit-btn").style.backgroundColor = '';
-//   }
-// }

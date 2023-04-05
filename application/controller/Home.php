@@ -49,8 +49,10 @@
         $credentials = new Credentials();
         $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
         $userId = $userDb->getUserId($_SESSION["email"]);
+        $userprofile = $userDb->fetchUserProfile($_SESSION["email"]);
         $userMusic = $userDb->getUserMusic($userId);
         $userFavourite = $userDb->getFavourite($userId);
+        $_SESSION["userprofile"] = $userprofile;
         $_SESSION["userMusic"] = $userMusic;
         $_SESSION["userfavourite"] = $userFavourite;
         $this->view("dashboard");

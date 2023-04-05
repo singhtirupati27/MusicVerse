@@ -27,16 +27,16 @@
 
           <div class="form-input interest-div">
             <label for="">Interests - Genre</label>
-            <input type="checkbox" id="pop" name="genre[]" value="Pop">
+            <input type="checkbox" id="pop" name="genre[]" value="Pop" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][0])) { echo "checked"; } ?>>
             <label for="pop">Pop</label>
-            <input type="checkbox" id="rock" name="genre[]" value="Rock">
+            <input type="checkbox" id="rock" name="genre[]" value="Rock" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][1])) { echo "checked"; } ?>>
             <label for="rock">Rock</label>
-            <input type="checkbox" name="genre[]" id="classic" value="Classic">
+            <input type="checkbox" name="genre[]" id="classic" value="Classic" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][2])) { echo "checked"; } ?>>
             <label for="classic">Classic</label>
-            <input type="checkbox" name="genre[]" id="hiphop" value="Hip Hop">
+            <input type="checkbox" name="genre[]" id="hiphop" value="Hip Hop" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][3])) { echo "checked"; } ?>>
             <label for="hiphop">Hip Hop</label>
-            <input type="checkbox" name="genre[]" id="others" value="Others">
-            <label for="rap">Others</label>
+            <input type="checkbox" name="genre[]" id="others" value="Others" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][4])) { echo "checked"; } ?>>
+            <label for="others">Others</label>
             <span class="error" id="checkInterest"><?php if(isset($GLOBALS["interestErr"])) { echo $GLOBALS["interestErr"]; } ?></span>
           </div>
 
@@ -46,7 +46,7 @@
         </form>
       </div>
       <div class="back-container">
-        <a href="/home/dashboard" class="back-btn">Go Back</a>
+        <a href="/home/user" class="back-btn">Go Back</a>
       </div>
     </div>
   </div>

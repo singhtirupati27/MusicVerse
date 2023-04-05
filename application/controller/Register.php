@@ -18,21 +18,13 @@
         $emailVerify = new Email();
         $validateSignup = new Signup();
 
-        $validateSignup->validateName($_POST["name"]);
-        $validateSignup->validateGender($_POST["gender"]);
-        $validateSignup->validateInterest($_POST["genre"]);
-        $validateSignup->validateContact($_POST["phone"]);
-        $validateSignup->validateEmail($_POST["email"]);
-        $validateSignup->validatePassword($_POST["password"]);
-        $validateSignup->matchPassword($_POST["password"], $_POST["cnfpassword"]);
+        $registerOk = $validateSignup->checkRegistration($_POST);
         // $emailVerify->verifyEmail($_POST["email"]);
 
-        if($validateSignup->nameErr == "" && $validateSignup->genderErr == "" && $validateSignup->interestErr == "" 
-            && $validateSignup->phoneErr == "" && $validateSignup->emailErr == "" && $validateSignup->passwordErr == "" 
-            && $validateSignup->cnfpasswordErr == "") {
+        if($registerOk) {
           if($emailVerify->emailErr == "") {
             if(!$userDb->checkUserNameExists($_POST["email"]) && !$userDb->checkUserContactExists($_POST["phone"])) {
-              if($userDb->registerUser($_POST["email"], $_POST["password"], $_POST["name"], $_POST["gender"], $_POST["phone"], $_POST["genre"])) {
+              if($userDb->registerUser($_POST)) {
                 echo "<script>alert('Your account has been created successfully!')</script>";
                 $this->view("login");
               }

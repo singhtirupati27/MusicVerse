@@ -32,47 +32,47 @@
                 <form action="/register/signup" method="post">
                   <div class="form-input">
                     <label for="fname">Name</label>
-                    <input type="text" name="name" id="name" placeholder="Full Name" onblur="validateName()">
+                    <input type="text" name="name" id="name" placeholder="Full Name" onblur="validateName()" value="<?php if(isset($_POST["name"])) { echo $_POST["name"]; } ?>">
                     <span class="error" id="checkName"><?php if(isset($GLOBALS["nameErr"])) { echo $GLOBALS["nameErr"]; } ?></span>
                   </div>
   
                   <div class="form-input gender-div">
                     <label for="gender" id="gender">Gender</label>
-                    <input type="radio" id="male" name="gender" value="Male">
+                    <input type="radio" id="male" name="gender" value="Male" <?php if (isset($_POST["gender"]) && $_POST["gender"]=="Male") { echo "checked"; }?>>
                     <label for="male">Male</label>
-                    <input type="radio" id="female" name="gender" value="Female">
+                    <input type="radio" id="female" name="gender" value="Female" <?php if (isset($_POST["gender"]) && $_POST["gender"]=="Female") { echo "checked"; }?>>
                     <label for="female">Female</label>
-                    <input type="radio" id="other" name="gender" value="Other">
+                    <input type="radio" id="other" name="gender" value="Other" <?php if (isset($_POST["gender"]) && $_POST["gender"]=="Other") { echo "checked"; }?>>
                     <label for="other">Other</label>
-                    <input type="radio" id="pref" name="gender" value="Prefer not to say">
+                    <input type="radio" id="pref" name="gender" value="Prefer not to say" <?php if (isset($_POST["gender"]) && $_POST["gender"]=="Prefer not to say") { echo "checked"; }?>>
                     <label for="prefer not to say">Prefer not to say</label>
                     <span class="error" id="checkGender"><?php if(isset($GLOBALS["genderErr"])) { echo $GLOBALS["genderErr"]; } ?></span>
                   </div>
   
                   <div class="form-input interest-div">
                     <label for="">Interests - Genre</label>
-                    <input type="checkbox" id="pop" name="genre[]" value="Pop">
+                    <input type="checkbox" id="pop" name="genre[]" value="Pop" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][0])) { echo "checked"; } ?>>
                     <label for="pop">Pop</label>
-                    <input type="checkbox" id="rock" name="genre[]" value="Rock">
+                    <input type="checkbox" id="rock" name="genre[]" value="Rock" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][1])) { echo "checked"; } ?>>
                     <label for="rock">Rock</label>
-                    <input type="checkbox" name="genre[]" id="classic" value="Classic">
+                    <input type="checkbox" name="genre[]" id="classic" value="Classic" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][2])) { echo "checked"; } ?>>
                     <label for="classic">Classic</label>
-                    <input type="checkbox" name="genre[]" id="hiphop" value="Hip Hop">
+                    <input type="checkbox" name="genre[]" id="hiphop" value="Hip Hop" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][3])) { echo "checked"; } ?>>
                     <label for="hiphop">Hip Hop</label>
-                    <input type="checkbox" name="genre[]" id="others" value="Others">
+                    <input type="checkbox" name="genre[]" id="others" value="Others" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][4])) { echo "checked"; } ?>>
                     <label for="rap">Others</label>
                     <span class="error" id="checkInterest"><?php if(isset($GLOBALS["interestErr"])) { echo $GLOBALS["interestErr"]; } ?></span>
                   </div>
   
                   <div class="form-input">
                     <label for="phone">Contact Number</label>
-                    <input type="text" name="phone" id="phone" placeholder="Contact Number" onblur="validatePhone()">
+                    <input type="text" name="phone" id="phone" placeholder="Contact Number" onblur="validatePhone()" value="<?php if(isset($_POST["phone"])) { echo $_POST["phone"]; } ?>">
                     <span class="error" id="checkPhone"><?php if(isset($GLOBALS["phoneErr"])) { echo $GLOBALS["phoneErr"]; } ?></span>
                   </div>
   
                   <div class="form-input">
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email" placeholder="Enter your email" onblur="validateEmail()">
+                    <input type="text" name="email" id="email" placeholder="Enter your email" onblur="validateEmail()" value="<?php if(isset($_POST["email"])) { echo $_POST["email"]; } ?>">
                     <span class="error" id="checkEmail"><?php if(isset($GLOBALS["emailErr"])) { echo $GLOBALS["emailErr"]; } ?></span>
                   </div>
   
