@@ -99,9 +99,9 @@
         $mail->Body = 'Hi,<br><br>Forgot your password?<br>
         We received a request to reset the password for your account.<br>
         <br>To reset your password, click on the button below:<br>
-        <a href="http://assignment.com/home/reset" style="color: white;background-color: #008ecf;padding: 10px 15px;display: inline-block;border-radius: 8px;text-decoration: none;">Reset password</a><br><br>
+        <a href="http://musicverse.com/home/reset" style="color: white;background-color: #008ecf;padding: 10px 15px;display: inline-block;border-radius: 8px;text-decoration: none;">Reset password</a><br><br>
         Or copy and paste the URL into your browser:<br>
-        <a href="http://assignment.com/home/reset">http://assignment.com/home/reset</a>';
+        <a href="http://musicverse.com/home/reset">http://musicverse.com/home/reset</a>';
         $mail->AltBody = '';
 
         $mail->send();

@@ -34,7 +34,7 @@
         $this->redirect("welcome");
       }
       else {
-        $this->view("login");
+        $this->redirect("home");
       }
     }
 
@@ -58,7 +58,7 @@
         $this->view("dashboard");
       }
       else {
-        $this->view("login");
+        $this->redirect("home");
       }
     }
 
