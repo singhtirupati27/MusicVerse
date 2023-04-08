@@ -7,12 +7,17 @@
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\SMTP;
   use PHPMailer\PHPMailer\Exception;
+  use App\Credentials;
 
   /* Load Composer's autoloader. */
   require 'vendor/autoload.php';
 
+  /**
+   * This class contains  methods to verify email using api
+   * and send email to reset password.
+   */
   class Email {
-    public $emailErr = "";
+    public string $emailErr = "";
 
     /**
      * Function to verify email using an api.
@@ -23,10 +28,11 @@
      *    In this function email is passed as parameter.
      */
     public function verifyEmail(string $email) {
+      $credentials = new Credentials();
       $client = new \GuzzleHttp\Client();
       
       $response = $client->request('GET', "https://api.apilayer.com/email_verification/check?email=$email", 
-        ['headers' => ['Content-Type' => 'text/plain', 'apikey'=> 'Y5r66DpVyLcVDcntuj5yNVPdBKxzpor6']]
+        ['headers' => ['Content-Type' => 'text/plain', 'apikey'=> $_ENV['APIKEY']]]
       );
       
       $responseReceived = $response->getBody();
@@ -51,7 +57,7 @@
      *  @return bool
      *    It will return true if sent, else false if not.
      */
-    public function sendEmail($email) {
+    public function sendEmail(string $email) {
 
       /* Create an instance; passing `true` enables exceptions. */
       $mail = new PHPMailer(true);

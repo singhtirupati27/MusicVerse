@@ -90,7 +90,7 @@
      *  @return bool
      *    Return TRUE if data exists in database, if not then return FALSE.
      */
-    public function checkUserNameExists($email) {
+    public function checkUserNameExists(string $email) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT * FROM admin WHERE user_email = :email");
@@ -115,7 +115,7 @@
      *  @return bool
      *    Return true if phone number exists, false if not.
      */
-    public function checkUserContactExists($phone) {
+    public function checkUserContactExists(string $phone) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT * FROM user_info WHERE user_phone = :phone");
@@ -142,7 +142,7 @@
      *  @return bool
      *    It will return TRUE if query has been executed successfully, FALSE if not.
      */
-    public function updateCredentials($email, $newPassword) {
+    public function updateCredentials(string $email, string $newPassword) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("UPDATE admin SET user_password = :newPassword WHERE user_email = :email");
@@ -164,13 +164,13 @@
      *  @param string $contact
      *    Contains user new contact.
      * 
-     *  @param string $interest
+     *  @param array $interest
      *    Contains user new interest.
      *
      *  @return bool
      *    It will return TRUE if query has been executed successfully, FALSE if not.
      */
-    public function updateProfile($email, $newEmail, $contact, $interest) {
+    public function updateProfile(string $email, string $newEmail, string $contact, array $interest) {
       $this->databaseConnet();
       $genre = $this->genreString($interest);
 
@@ -199,7 +199,7 @@
      *  @return bool
      *    It will return TRUE if query has been executed successfully, FALSE if email already exists.
      */
-    public function registerUser($user_data) {
+    public function registerUser(array $user_data) {
       $this->databaseConnet();
       $genre = $this->genreString($user_data["genre"]);
 
@@ -238,7 +238,7 @@
      *  @return array
      *    Return result in array.
      */
-    public function getUsername($email) {
+    public function getUsername(string $email) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT user_name FROM user_info
@@ -263,7 +263,7 @@
      *  @return mixed
      *    Return a column, else false if no records found.
      */
-    public function getUserId($email) {
+    public function getUserId(string $email) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT user_id FROM admin WHERE user_email = :email");
@@ -285,7 +285,7 @@
      *  @return array
      *    Return records in array.
      */
-    public function fetchUserProfile($email) {
+    public function fetchUserProfile(string $email) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT user_email, user_phone, user_name, user_gender, user_interest FROM admin
@@ -310,7 +310,7 @@
      *  @return string
      *   Return string after concatinating.
      */
-    public function genreString($genreArr) {
+    public function genreString(array $genreArr) {
       $genre = "";
 
       foreach($genreArr as $checked) {
@@ -330,7 +330,7 @@
      *  @return string
      *    Return filename.
      */
-    public function trimFileName($filename) {
+    public function trimFileName(string $filename) {
       $str = explode(" ", $filename);
 
       foreach($str as $value) {
@@ -364,7 +364,7 @@
      *  @return bool
      *    True if query executed successfully.
      */
-    public function addMusic($name, $singer, $genre, $link, $coverImage, $userMusicId) {
+    public function addMusic(string $name, string $singer, array $genre, string $link, string $coverImage, int $userMusicId) {
       $this->databaseConnet();
       $genres = $this->genreString($genre);
 
@@ -418,7 +418,7 @@
      *  @return bool
      *    True if query executed successfully, false if not.
      */
-    public function addUserMusic($userId, $musicName, $singer, $genre, $link, $coverImage) {
+    public function addUserMusic(int $userId, string $musicName, string $singer, array $genre, string $link, string $coverImage) {
       $this->databaseConnet();
       $genres = $this->genreString($genre);
 
@@ -490,68 +490,29 @@
       $query = $this->connectionData->prepare("SELECT * FROM music LIMIT {$offsets}, {$limit_per_page}");
       $query->execute();
 
-      $response = $query;
-      $rows = $response->rowCount();
-      $data = $response->fetchAll();
+      $response = $query->fetchAll();
 
-      $output = "";
-      if($rows >= 1) {
-
-        foreach($data as $value) {
-          $music_id = $value["music_id"];
-          $name = $value["name"];
-          $singer = $value["singer"];
-          $genre = $value["genre"];
-          $image = $value["cover_img"];
-          $output .= "<div class='music-list'>
-                        <div class='music-box'>
-                          <div class='music-cover-img'>
-                            <img src='/{$image}' alt='{$name}'>
-                            <div class='play-btn'>
-                              <a href='/music/play/{$music_id}'><img src='/public/img/play-btn.svg' alt='Play Now'></a>
-                            </div>
-                          </div>
-                          <div class='music-details'>
-                            <h3>{$name}</h3>
-                            <h4>Singer: {$singer}</h4>
-                            <p>Genre: {$genre}</p>
-                          </div>
-                        </div>";
-        }
-        $output .= "</div>";
-        
-        $query = $this->connectionData->prepare("SELECT * FROM music");
-        $query->execute();
-
-        $total_records = $query->rowCount();
-        $total_pages = ceil($total_records/$limit_per_page);
-
-        $outputs = "";
-        $outputs .= '<div id="pagination">';
-
-        for($i = 1; $i <= $total_pages; $i++) {
-          if($i == $page) {
-            $class_name = "active";
-            $color = "#ff554f";
-            $background_color = "white";
-          }
-          else {
-            $class_name = "";
-            $color = "white";
-            $background_color = "#ff554f";
-          }
-
-          $outputs .= "<a class='{$class_name}' id='{$i}' href='' style='background-color:{$background_color}; color:{$color};'>{$i}</a>";
-        }
-
-        $outputs .= '</div>';
-      }
-      else {
-        return "No music found.";
-      }
-
-      return [$output, $outputs];
+      return $response;
     }
+
+    /**
+     * Function to calculate number of records returned in query.
+     * 
+     *  @param string $table_name
+     *    Contains table name.
+     * 
+     *  @return int
+     */
+    public function calculateRows($table_name) {
+      $this->databaseConnet();
+
+      $query = $this->connectionData->prepare("SELECT * FROM {$table_name}");
+      $query->execute();
+
+      $response = $query->rowCount();
+
+      return $response;
+    }    
 
     /**
      * Function to get user added music from database.
@@ -561,7 +522,7 @@
      * 
      *  @return array
      */
-    public function getUserMusic($userId) {
+    public function getUserMusic(int $userId) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT * FROM music
@@ -588,7 +549,7 @@
      * 
      *  @return array
      */
-    public function fetchMusicById($musicName, $singer) {
+    public function fetchMusicById(string $musicName, string $singer) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT user_music_id FROM user_music WHERE name = :musicName AND singer = :singer");
@@ -616,7 +577,7 @@
      *  @return bool
      *    True if music exists, false if not.
      */
-    public function isMusicExists($userId, $musicName, $singer) {
+    public function isMusicExists(int $userId, string $musicName, string $singer) {
       $this->databaseConnet();
 
       if(empty($userId)) {
@@ -651,7 +612,7 @@
      *  @return bool
      *    True if music added to favourite, false if not.
      */
-    public function addFavourite($userId, $musicId) {
+    public function addFavourite(int $userId, int $musicId) {
       $this->databaseConnet();
 
       try {
@@ -681,7 +642,7 @@
      *  @return bool
      *    True if music removed from favourite, false if not.
      */
-    public function removeFavourite($userId, $musicId) {
+    public function removeFavourite(int $userId, int $musicId) {
       $this->databaseConnet();
 
       try {
@@ -711,7 +672,7 @@
      *  @return bool
      *    True if music exists, false if not.
      */
-    public function isFavourite($userId, $musicId) {
+    public function isFavourite(int $userId, int $musicId) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT fav_id FROM favourites WHERE user_id = :userId AND music_id = :musicId");
@@ -734,9 +695,8 @@
      *    Contains user id.
      * 
      *  @return array
-     * 
      */
-    public function getFavourite($userId) {
+    public function getFavourite(int $userId) {
       $this->databaseConnet();
 
       $query = $this->connectionData->prepare("SELECT m.music_id, m.name, m.singer, m.genre, m.link, m.cover_img 
@@ -766,21 +726,19 @@
      * 
      *  @return string
      */
-    public function favourite($userId, $musicId) {
+    public function favourite(int $userId, int $musicId) {
       $this->databaseConnet();
 
       $isFav = $this->isFavourite($userId, $musicId);
 
       if($isFav) {
         $this->removeFavourite($userId, $musicId);
-        $output = '<a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x" style="color:white;"></a>';
+        return FALSE;
       }
       else {
         $this->addFavourite($userId, $musicId);
-        $output = '<a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x" style="color:red;"></a>';
+        return TRUE;
       }
-
-      return $output;
     }
 
   }

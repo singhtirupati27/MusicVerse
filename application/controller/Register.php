@@ -2,6 +2,10 @@
 
   use App\Credentials;
   
+  /**
+   * Register controller class contains methods to register
+   * new user.
+   */
   class Register extends Framework {
     
     /**
@@ -21,9 +25,16 @@
         $registerOk = $validateSignup->checkRegistration($_POST);
         // $emailVerify->verifyEmail($_POST["email"]);
 
+        // Check for input fields are valid or not.
         if($registerOk) {
+
+          // Check for email api verification.
           if($emailVerify->emailErr == "") {
+
+            // Check if user already register or not.
             if(!$userDb->checkUserNameExists($_POST["email"]) && !$userDb->checkUserContactExists($_POST["phone"])) {
+
+              // Check if user has been register or not.
               if($userDb->registerUser($_POST)) {
                 echo "<script>alert('Your account has been created successfully!')</script>";
                 $this->view("login");

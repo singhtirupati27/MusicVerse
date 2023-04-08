@@ -219,10 +219,6 @@ a {
   height: 1180px;
 }
 
-.music-list {
-  height: 900px;
-}
-
 .music-wrap {
   position: relative;
   height: 100%;
@@ -307,6 +303,7 @@ audio {
 }
 
 #pagination {
+  clear: left;
   margin-top: 20px;
   text-align: center;
 }
@@ -318,6 +315,16 @@ audio {
   margin-right: 5px;
   font-size: 18px;
   border-radius: 5px;
+}
+
+.active {
+  color: #ff554f;
+  background-color: white;
+}
+
+.inactive {
+  color: white;
+  background-color: #ff554f;
 }
 
 /* Playback container */

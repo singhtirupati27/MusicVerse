@@ -1,6 +1,10 @@
 <?php
+
   use App\Credentials;
 
+  /**
+   * Profile controller class to update user profile.
+   */
   class Profile extends Framework {
 
     /**
@@ -27,15 +31,19 @@
           $validateData = new Signup();
           $email = new Email();
         
-
           $validateData->validateEmail($_POST["email"]);
           $validateData->validateContact($_POST["phone"]);
           $validateData->validateInterest($_POST);
           // Disabled email verification using api as it taking time to receive response.
           // $email->verifyEmail($_POST["email"]);
 
+          // Check if input fields are in valid format or not.
           if($validateData->emailErr == "" && $validateData->phoneErr == "" && $validateData->interestErr == "") {
+
+            // Verify whether email is working or not.
             if($email->emailErr == "") {
+
+              // Check whether if profile has been updated in database or not.
               if($database->updateProfile($_SESSION["email"], $_POST["email"], $_POST["phone"], $_POST["genre"])) {
                 echo "<script>alert('Profile updated successfully!')</script>";
                 $this->view("profileupdate");

@@ -23,13 +23,17 @@
      *  @return bool
      *    True if format valid, false if not.
      */
-    public function validateName($name) {
+    public function validateName(string $name) {
+
+      // Check if input field is empty.
       if(empty($name)) {
         $this->nameErr = "Name field cannot be empty.";
+        $this->dataValid = 0;
         return FALSE;
       }
       elseif(!preg_match("/^[a-zA-Z-' ]+$/", $name)) {
         $this->nameErr = "Only characters are allowed!";
+        $this->dataValid = 0;
         return FALSE;
       }
       else {
@@ -43,7 +47,7 @@
      *  @param array $user_data
      *    Contains user all data.
      */
-    public function validateGender($user_data) {
+    public function validateGender(array $user_data) {
       if(!isset($user_data["gender"])) {
         $this->genderErr = "Gender is required";
         $this->dataValid = 0;
@@ -56,7 +60,7 @@
      *  @param array $user_data
      *    Hold user all data.
      */
-    public function validateInterest($user_data) {
+    public function validateInterest(array $user_data) {
       if(!isset($user_data["genre"])) {
         $this->interestErr = "Please select at least 1 genre";
         $this->dataValid = 0;
@@ -72,13 +76,15 @@
      *  @return bool
      *   Return true if format valid, false if not.
      */
-    public function validateContact($phone) {
+    public function validateContact(string $phone) {
       if(empty($phone)) {
         $this->phoneErr = "Phone number is required";
+        $this->dataValid = 0;
         return FALSE;
       }
       elseif(!preg_match("/^(\+91)[0-9]{10}$/", $phone)) {
         $this->phoneErr = "Invalid phone number!";
+        $this->dataValid = 0;
         return FALSE;
       }
       else {
@@ -92,12 +98,14 @@
      *  @param string $email
      *    Contains email address.
      */
-    public function validateEmail($email) {
+    public function validateEmail(string $email) {
       if(empty($email)) {
         $this->emailErr = "Email is required";
+        $this->dataValid = 0;
       }
       if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $this->emailErr = "Invalid email format!";
+        $this->dataValid = 0;
       }
       else {
         $this->emailErr = "";
@@ -110,17 +118,20 @@
      *  @param string $password
      *    Contains password entered by user.
      */
-    public function validatePassword($password) {
+    public function validatePassword(string $password) {
       $pattern = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/";
 
       if(empty($password)) {
         $this->passwordErr = "Password cannot be empty.";
+        $this->dataValid = 0;
       }
       elseif (!strlen($password) >= 8 && strlen($password) <= 15) {
         $this->passwordErr = "Password length must be greater than 8 characters.";
+        $this->dataValid = 0;
       }
       elseif(!preg_match($pattern, $password)) {
         $this->passwordErr = "Password must contain at least one lower, one upper, one numeric and one special character";
+        $this->dataValid = 0;
       }
       else {
         $this->passwordErr = "";
@@ -139,13 +150,15 @@
      *  @return bool
      *    True if password match, false if not.
      */
-    public function matchPassword($password, $cnfpassword) {
+    public function matchPassword(string $password, string $cnfpassword) {
       if(empty($cnfpassword)) {
         $this->cnfpasswordErr = "Confirm password cannot be empty";
+        $this->dataValid = 0;
         return FALSE;
       }
       elseif($password != $cnfpassword) {
         $this->cnfpasswordErr = "Password do not match.";
+        $this->dataValid = 0;
         return FALSE;
       }
       else {
@@ -162,7 +175,7 @@
      *  @return bool
      *    True if all fields are valid, false if not.
      */
-    public function checkRegistration($user_data) {
+    public function checkRegistration(array $user_data) {
       $this->validateName($user_data["name"]);
       $this->validateGender($user_data);
       $this->validateInterest($user_data);

@@ -2,6 +2,10 @@
   
   use App\Credentials;
 
+  /**
+   * Home controller class to load home, login, dashboard, forget password
+   * and sign out page.
+   */
   class Home extends Framework {
 
     /**
@@ -52,9 +56,11 @@
         $userprofile = $userDb->fetchUserProfile($_SESSION["email"]);
         $userMusic = $userDb->getUserMusic($userId);
         $userFavourite = $userDb->getFavourite($userId);
+
         $_SESSION["userprofile"] = $userprofile;
         $_SESSION["userMusic"] = $userMusic;
         $_SESSION["userfavourite"] = $userFavourite;
+
         $this->view("dashboard");
       }
       else {
@@ -82,12 +88,16 @@
           $validateSignup->validateEmail($_POST["email"]);
           $validateSignup->validatePassword($_POST["password"]);
   
+          // Check if there is no error in input field data.
           if($validateSignup->emailErr == "" && $validateSignup->passwordErr == "") {
+
+            // Check if user login data exists or not in database.
             if($userDb->checkLogin($_POST["email"], $_POST["password"])) {
               $userprofile = $userDb->fetchUserProfile($_POST["email"]);
               $musicList = $userDb->requestMusic();
               $userId = $userDb->getUserId($_POST["email"]);
               $userMusic = $userDb->getUserMusic($userId);
+
               $_SESSION["userprofile"] = $userprofile;
               $_SESSION["musicList"] = $musicList;
               $_SESSION["userMusic"] = $userMusic;
@@ -95,6 +105,7 @@
               $_SESSION["userid"] = $userId;
               $_SESSION["username"] = $userDb->getUsername($_POST["email"]);
               $_SESSION["loggedIn"] = TRUE;
+
               $this->redirect("welcome");
             }
             else {
@@ -133,8 +144,13 @@
 
         $validateSignup->validateEmail($_POST["email"]);
 
+        // Check if email format is valid.
         if($validateSignup->emailErr == "") {
+
+          // Check if username exists in databse.
           if($userDb->checkUserNameExists($_POST["email"])) {
+
+            // Send password reset email.
             if($email->sendEmail($_POST["email"])) {
               echo "<script>alert('E-mail has been sent!')</script>";
               $_SESSION["mailSent"] = TRUE;
@@ -166,6 +182,7 @@
     public function reset() {
       session_start();
 
+      // Check if password reset has been generated or not.
       if(isset($_SESSION["mailSent"]) && $_SESSION["mailSent"]) {
         if(isset($_POST["resetpassword"])) {
           $this->model("UserDb");
@@ -179,8 +196,13 @@
           $validateSignup->validatePassword($_POST["password"]);
           $validateSignup->matchPassword($_POST["password"], $_POST["cnfpassword"]);
 
+          // Check if email and password fields are valid.
           if($validateSignup->emailErr == "" && $validateSignup->passwordErr == "" && $validateSignup->cnfpasswordErr == "") {
+
+            // Check if user email already exists or not in database.
             if($userDb->checkUserNameExists($_POST["email"])) {
+
+              // Check if user credentials has been updated.
               if($userDb->updateCredentials($_POST["email"], $_POST["password"])) {
                 echo '<script>alert("Password changed successfully.")</script>';
                 $_SESSION["mailSent"] = FALSE;
@@ -214,6 +236,7 @@
 
     /**
      * Function to load signout page.
+     * After sign out destroy session.
      */
     public function signout() {
       session_start();
@@ -222,6 +245,9 @@
       $this->redirect("home");
     }
 
+    /**
+     * Function to load error page.
+     */
     public function page() {
       $this->error('error');
     }

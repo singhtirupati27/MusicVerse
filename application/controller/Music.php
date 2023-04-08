@@ -2,6 +2,9 @@
 
   use App\Credentials;
 
+  /**
+   * Music controller class to upload, play and add to favourite music.
+   */
   class Music extends Framework {
 
     /**
@@ -26,6 +29,7 @@
           $GLOBALS["mnameErr"] = $music->isEmpty($_POST["music-name"]);
           $GLOBALS["singerErr"] = $music->isEmpty($_POST["singer"]);
 
+          // Check if music cover image is not empty.
           if(!empty($_FILES["cover-image"])) {
             $music->uploadCoverImage($_FILES["cover-image"]);
           }
@@ -33,10 +37,12 @@
             $music->imageFileLocation = "";
           }
         
+          // Check of uploaded music input field is ok.
           if($music->uploadOk == 1) {
             $userMusicExists = $database->isMusicExists($userId, $_POST["music-name"], $_POST["singer"]);
             $musicExists = $database->isMusicExists("", $_POST["music-name"], $_POST["singer"]);
 
+            // Check if music being uploaded already exists.
             if(!$userMusicExists && !$musicExists){
               $addUserMusic = $database->addUserMusic($userId, $_POST["music-name"], $_POST["singer"], $_POST["genre"], 
                 $music->musicFileLocation, $music->imageFileLocation);
@@ -46,6 +52,7 @@
               $addMusic = $database->addMusic($_POST["music-name"], $_POST["singer"], $_POST["genre"], 
                 $music->musicFileLocation, $music->imageFileLocation, $uploadId);
 
+              // Check for whether music has been uploaded or not.
               if($addUserMusic && $addMusic) {
                 if(move_uploaded_file($_FILES["music-file"]["tmp_name"], $music->musicFileLocation)) {
 
@@ -81,12 +88,15 @@
         }
       }
       else {
-        $this->view("login");
+        $this->redirect("home");
       }
     }
 
     /**
      * Function to load play music page.
+     * 
+     *  @param int $musicId
+     *    Hold current playing music id.
      */
     public function play($musicId) {
       session_start();
@@ -97,15 +107,15 @@
         $credentials = new Credentials();
         $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
         $isFav = $database->isFavourite($_SESSION["userid"], $musicId);
-        $_SESSION["isFav"] = $isFav;
         $music = $database->requestMusic();
 
+        $_SESSION["isFav"] = $isFav;
         $_SESSION["playnow"] = $music[$musicId - 1];
 
         $this->view("playmusic");
       }
       else {
-        $this->view("login");
+        $this->redirect("home");
       }
     }
 
@@ -116,9 +126,13 @@
       $this->model("UserDb");
       $credentials = new Credentials();
       $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
-      $data = $database->musicList();
-      echo $data["0"];
-      echo $data["1"];
+      $music = $database->musicList();
+      $rowCount = $database->calculateRows("music");
+
+      $_SESSION["loadmusic"] = $music;
+      $_SESSION["rowCount"] = $rowCount;     
+
+      return ($this->view("music"));
     }
 
     /**

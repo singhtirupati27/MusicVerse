@@ -19,6 +19,10 @@ function invalidInput(nameId, btnId) {
   document.getElementById(btnId).style.backgroundColor = 'lightgrey';
 }
 
+/**
+ * Function to check store message for empty field
+ * and make button disable.
+ */
 function emptyField(msgId, btnId) {
   document.getElementById(msgId).innerHTML = "Field cannot be empty";
   document.getElementById(btnId).disabled = true;

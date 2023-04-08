@@ -22,6 +22,7 @@
       $_ENV['USERNAME'];
       $_ENV['PASSWORD'];
       $_ENV['DBNAME'];
+      $_ENV['APIKEY'];
     }
 
   }

@@ -60,7 +60,7 @@
                     <input type="checkbox" name="genre[]" id="hiphop" value="Hip Hop" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][3])) { echo "checked"; } ?>>
                     <label for="hiphop">Hip Hop</label>
                     <input type="checkbox" name="genre[]" id="others" value="Others" <?php if(isset($_POST["genre"]) && isset($_POST["genre"][4])) { echo "checked"; } ?>>
-                    <label for="rap">Others</label>
+                    <label for="others">Others</label>
                     <span class="error" id="checkInterest"><?php if(isset($GLOBALS["interestErr"])) { echo $GLOBALS["interestErr"]; } ?></span>
                   </div>
   

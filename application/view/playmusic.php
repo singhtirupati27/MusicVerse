@@ -1,11 +1,9 @@
 <?php
   require 'application/view/header.php';
-?>
 
-<?php
   $music = $_SESSION["playnow"];
   $_SESSION["currentMusicId"] = $music["music_id"];
-  ?>
+?>
 
 <!-- Playback container -->
 <div class="playback-container" 

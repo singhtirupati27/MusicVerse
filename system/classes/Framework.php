@@ -12,7 +12,7 @@
      *  @param string $filename
      *    Contains file name.
      */
-    public function view($filename) {
+    public function view(string $filename) {
       $dir = 'application/view/' . $filename . '.php';
 
       if(file_exists($dir)) {
@@ -30,7 +30,7 @@
      *  @param string $filename
      *    Contains file name.
      */
-    public function model($filename) {
+    public function model(string $filename) {
       $dir = 'application/model/' . ucfirst($filename) . '.php';
 
       if(file_exists($dir)) {
@@ -47,7 +47,7 @@
      *  @param string $filename
      *    Contains file name.
      */
-    public function error($filename) {
+    public function error(string $filename) {
       $dir = 'application/view/' . $filename . '.php';
 
       if(file_exists($dir)) {
@@ -61,7 +61,7 @@
      *  @param string $filename
      *    Contains file name.
      */
-    public function redirect($path) {
+    public function redirect(string $path) {
       header('location: /' . $path);
     }
     

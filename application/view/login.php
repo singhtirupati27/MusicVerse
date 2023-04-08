@@ -52,7 +52,7 @@
 
             <div class="signup-container">
               <p>Don't have an account?</p>
-              <a href="/register/signup">Sign Up For Music Verse</a>
+              <a href="/register/signup">Sign Up For Free</a>
             </div>
           </div>
         </div>

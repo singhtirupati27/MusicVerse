@@ -69,12 +69,8 @@
   <div class="page-wrapper music-wrap">
     <div class="music-content">
       <div class="music-list">
-      <!-- <?php //echo "<pre>"; print_r($usermusic); echo "</pre>"; ?> -->
         <h2>Your uploads</h2>
         <?php
-          // echo "<pre>";
-          // print_r($userfavourite);
-          // echo "</pre>";
           if(!empty($usermusic)) {
           foreach($usermusic as $value) {
         ?>
@@ -83,8 +79,6 @@
           <div class="music-cover-img">
             <img src="/<?php echo $value['cover_img'] ?>" alt="<?php $value['name'] ?>">
             <div class="play-btn">
-              <!-- Added new need to be check -->
-              <!-- <a href="/music/playmusic/<?php //echo $value['user_music_id']?>"><img src="/public/img/play-btn.svg" alt="Play Now"></a> -->
               <a href="/music/play/<?php echo $value['music_id']?>"><img src="/public/img/play-btn.svg" alt="Play Now"></a>
             </div>
           </div>
@@ -117,7 +111,6 @@
   <div class="page-wrapper music-wrap">
     <div class="music-content">
       <div class="music-list favourites">
-        <!-- <?php //echo "<pre>"; print_r($userfavourite); echo "</pre>"; ?> -->
         <h2>Favourites</h2>
         <?php
           if(!empty($userfavourite)) {
@@ -147,6 +140,7 @@
         <div class="upload">
           <h3 style="color: white">You have no favourite music.</h3>
         </div>
+        
         <?php
           }
         ?>

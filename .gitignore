@@ -4,9 +4,6 @@ vendor/
 # .env contains the credentials of the database.
 .env
 
-# File contains query to create user database.
-project.sql
-
 # File containig music cover images.
 coverimage/
 
@@ -14,4 +11,3 @@ coverimage/
 music/ 
 music/coverimage/ 
 music/usermusic/
-
