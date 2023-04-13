@@ -1,4 +1,5 @@
 <?php
+  session_start();
 
   use App\Credentials;
 
@@ -11,8 +12,6 @@
      * Function load user profile update page.
      */
     public function update() {
-      session_start();
-
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
         $this->model("UserDb");
 

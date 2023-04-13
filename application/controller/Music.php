@@ -1,4 +1,5 @@
 <?php
+  session_start();
 
   use App\Credentials;
 
@@ -11,8 +12,6 @@
      * Function to load user music upload page.
      */
     public function upload() {
-      session_start();
-
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
         if(isset($_POST["add-music"])) {
           $this->model("MusicModel");
@@ -98,9 +97,7 @@
      *  @param int $musicId
      *    Hold current playing music id.
      */
-    public function play($musicId) {
-      session_start();
-
+    public function play(int $musicId) {
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
         $this->model("UserDb");
 
@@ -139,8 +136,6 @@
      * Function to load add or remove to favourite page.
      */
     public function favourites() {
-      session_start();
-    
       $this->model("UserDb");
 
       $credentials = new Credentials();

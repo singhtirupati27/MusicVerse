@@ -64,8 +64,6 @@
      *    Return TRUE if data exists in database, if not then return FALSE.
      */
     public function checkLogin(string $username, string $password) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT * FROM admin WHERE user_email = :username AND user_password = :password");
       $query->bindParam(':username', $username);
       $query->bindParam(':password', $password);
@@ -91,8 +89,6 @@
      *    Return TRUE if data exists in database, if not then return FALSE.
      */
     public function checkUserNameExists(string $email) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT * FROM admin WHERE user_email = :email");
       $query->bindParam(':email', $email);
 
@@ -116,8 +112,6 @@
      *    Return true if phone number exists, false if not.
      */
     public function checkUserContactExists(string $phone) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT * FROM user_info WHERE user_phone = :phone");
       $query->bindParam(':phone', $phone);
       $query->execute();
@@ -143,8 +137,6 @@
      *    It will return TRUE if query has been executed successfully, FALSE if not.
      */
     public function updateCredentials(string $email, string $newPassword) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("UPDATE admin SET user_password = :newPassword WHERE user_email = :email");
       $query->bindParam(':newPassword', $newPassword);
       $query->bindParam(':email', $email);
@@ -171,7 +163,6 @@
      *    It will return TRUE if query has been executed successfully, FALSE if not.
      */
     public function updateProfile(string $email, string $newEmail, string $contact, array $interest) {
-      $this->databaseConnet();
       $genre = $this->genreString($interest);
 
       $query = $this->connectionData->prepare("UPDATE admin
@@ -200,7 +191,6 @@
      *    It will return TRUE if query has been executed successfully, FALSE if email already exists.
      */
     public function registerUser(array $user_data) {
-      $this->databaseConnet();
       $genre = $this->genreString($user_data["genre"]);
 
       try {
@@ -239,8 +229,6 @@
      *    Return result in array.
      */
     public function getUsername(string $email) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT user_name FROM user_info
         INNER JOIN admin
         ON user_info.user_id = admin.user_id
@@ -264,8 +252,6 @@
      *    Return a column, else false if no records found.
      */
     public function getUserId(string $email) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT user_id FROM admin WHERE user_email = :email");
 
       $query->bindParam(':email', $email);
@@ -286,8 +272,6 @@
      *    Return records in array.
      */
     public function fetchUserProfile(string $email) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT user_email, user_phone, user_name, user_gender, user_interest FROM admin
         INNER JOIN user_info
         ON admin.user_id = user_info.user_id
@@ -365,7 +349,6 @@
      *    True if query executed successfully.
      */
     public function addMusic(string $name, string $singer, array $genre, string $link, string $coverImage, int $userMusicId) {
-      $this->databaseConnet();
       $genres = $this->genreString($genre);
 
       try {
@@ -419,7 +402,6 @@
      *    True if query executed successfully, false if not.
      */
     public function addUserMusic(int $userId, string $musicName, string $singer, array $genre, string $link, string $coverImage) {
-      $this->databaseConnet();
       $genres = $this->genreString($genre);
 
       try {
@@ -455,8 +437,6 @@
      *    Return records in array type.
      */
     public function requestMusic() {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT * FROM music");
       $query->execute();
 
@@ -472,8 +452,6 @@
      *  @return array
      */
     public function musicList() {
-      $this->databaseConnet();
-
       $limit_per_page = 8;
 
       $page = "";
@@ -504,8 +482,6 @@
      *  @return int
      */
     public function calculateRows($table_name) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT * FROM {$table_name}");
       $query->execute();
 
@@ -523,8 +499,6 @@
      *  @return array
      */
     public function getUserMusic(int $userId) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT * FROM music
         INNER JOIN user_music
         ON user_music.user_music_id = music.user_music_id
@@ -550,8 +524,6 @@
      *  @return array
      */
     public function fetchMusicById(string $musicName, string $singer) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT user_music_id FROM user_music WHERE name = :musicName AND singer = :singer");
       $query->bindParam(':musicName', $musicName);
       $query->bindParam(':singer', $singer);
@@ -578,8 +550,6 @@
      *    True if music exists, false if not.
      */
     public function isMusicExists(int $userId, string $musicName, string $singer) {
-      $this->databaseConnet();
-
       if(empty($userId)) {
         $query = $this->connectionData->prepare("SELECT name FROM music WHERE name = :musicName AND singer = :singer");
       }
@@ -613,8 +583,6 @@
      *    True if music added to favourite, false if not.
      */
     public function addFavourite(int $userId, int $musicId) {
-      $this->databaseConnet();
-
       try {
         $query = $this->connectionData->prepare("INSERT INTO favourites(user_id, music_id)
           VALUES(:userId, :musicId)");
@@ -643,8 +611,6 @@
      *    True if music removed from favourite, false if not.
      */
     public function removeFavourite(int $userId, int $musicId) {
-      $this->databaseConnet();
-
       try {
         $query = $this->connectionData->prepare("DELETE FROM favourites
           WHERE user_id = :userId AND music_id = :musicId");
@@ -673,8 +639,6 @@
      *    True if music exists, false if not.
      */
     public function isFavourite(int $userId, int $musicId) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT fav_id FROM favourites WHERE user_id = :userId AND music_id = :musicId");
       $query->bindParam(':userId', $userId);
       $query->bindParam(':musicId', $musicId);
@@ -697,8 +661,6 @@
      *  @return array
      */
     public function getFavourite(int $userId) {
-      $this->databaseConnet();
-
       $query = $this->connectionData->prepare("SELECT m.music_id, m.name, m.singer, m.genre, m.link, m.cover_img 
         FROM favourites f
         INNER JOIN music m
@@ -727,8 +689,6 @@
      *  @return string
      */
     public function favourite(int $userId, int $musicId) {
-      $this->databaseConnet();
-
       $isFav = $this->isFavourite($userId, $musicId);
 
       if($isFav) {

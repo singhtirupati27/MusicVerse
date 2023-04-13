@@ -1,5 +1,6 @@
 <?php
-  
+  session_start();
+
   use App\Credentials;
 
   /**
@@ -12,8 +13,6 @@
      * Function to load landing page.
      */
     public function index() {
-      session_start();
-
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
         $this->view("welcome");
       }
@@ -26,8 +25,6 @@
      * Function to load dashboard page.
      */
     public function dashboard() {
-      session_start();
-
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
         $this->model("UserDb");
         $credentials = new Credentials();
@@ -46,8 +43,6 @@
      * Function to load user profile page.
      */
     public function user() {
-      session_start();
-
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
         $this->model("UserDb");
         $credentials = new Credentials();
@@ -72,8 +67,6 @@
      * Function to load login page.
      */
     public function login() {
-      session_start();
-
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
         $this->redirect("welcome");
       }
@@ -129,7 +122,6 @@
      * Function to load forget password page.
      */
     public function forget() {
-      session_start();
       $_SESSION["mailSent"] = FALSE;
 
       if(isset($_POST["forgetpassword"])) {
@@ -180,8 +172,6 @@
      * Function to load reset password page.
      */
     public function reset() {
-      session_start();
-
       // Check if password reset has been generated or not.
       if(isset($_SESSION["mailSent"]) && $_SESSION["mailSent"]) {
         if(isset($_POST["resetpassword"])) {
@@ -239,7 +229,6 @@
      * After sign out destroy session.
      */
     public function signout() {
-      session_start();
       session_unset();
       session_destroy();
       $this->redirect("home");
