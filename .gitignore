@@ -11,3 +11,6 @@ coverimage/
 music/ 
 music/coverimage/ 
 music/usermusic/
+
+# Files containing webpage images, logo, banner.
+img/

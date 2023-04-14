@@ -1,5 +1,7 @@
 <?php
 
+  $_SESSION["message"] = "";
+
   use App\Credentials;
   
   /**
@@ -36,21 +38,21 @@
 
               // Check if user has been register or not.
               if($userDb->registerUser($_POST)) {
-                echo "<script>alert('Your account has been created successfully!')</script>";
+                $_SESSION["message"] = "Your account has been created successfully!";
                 $this->view("login");
               }
               else {
-                echo "<script>alert('Error while creating your account. Please try again.')</script>";
+                $_SESSION["message"] = "Error while creating your account. Please try again.";
                 $this->view("register");
               }
             }
             else {
-              echo "<script>alert('User already exists.')</script>";
+              $_SESSION["message"] = "User already exists.";
               $this->view("register");
             }
           }
           else {
-            echo "<script>alert('Invalid email!')</script>";
+            $_SESSION["message"] = "Invalid email!";
             $this->view("register");
           }
         }

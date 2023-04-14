@@ -476,3 +476,9 @@ audio {
 .error {
   color: red;
 }
+
+.error-msg {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}

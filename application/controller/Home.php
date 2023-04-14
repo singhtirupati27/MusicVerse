@@ -1,5 +1,6 @@
 <?php
   session_start();
+  $_SESSION["message"] = "";
 
   use App\Credentials;
 
@@ -13,7 +14,9 @@
      * Function to load landing page.
      */
     public function index() {
-      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
+
+      // Check if user is already logged in or not.
+      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->view("welcome");
       }
       else {
@@ -25,7 +28,9 @@
      * Function to load dashboard page.
      */
     public function dashboard() {
-      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
+
+      // Check if user is already logged in or not.
+      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
         $credentials = new Credentials();
         $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
@@ -43,16 +48,18 @@
      * Function to load user profile page.
      */
     public function user() {
-      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
+
+      // Check if user is already logged in or not.
+      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
         $credentials = new Credentials();
         $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
         $userId = $userDb->getUserId($_SESSION["email"]);
-        $userprofile = $userDb->fetchUserProfile($_SESSION["email"]);
+        $userProfile = $userDb->fetchUserProfile($_SESSION["email"]);
         $userMusic = $userDb->getUserMusic($userId);
         $userFavourite = $userDb->getFavourite($userId);
 
-        $_SESSION["userprofile"] = $userprofile;
+        $_SESSION["userprofile"] = $userProfile;
         $_SESSION["userMusic"] = $userMusic;
         $_SESSION["userfavourite"] = $userFavourite;
 
@@ -67,7 +74,9 @@
      * Function to load login page.
      */
     public function login() {
-      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
+
+      // Check if user is already logged in or not.
+      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->redirect("welcome");
       }
       else {
@@ -86,12 +95,12 @@
 
             // Check if user login data exists or not in database.
             if($userDb->checkLogin($_POST["email"], $_POST["password"])) {
-              $userprofile = $userDb->fetchUserProfile($_POST["email"]);
+              $userProfile = $userDb->fetchUserProfile($_POST["email"]);
               $musicList = $userDb->requestMusic();
               $userId = $userDb->getUserId($_POST["email"]);
               $userMusic = $userDb->getUserMusic($userId);
 
-              $_SESSION["userprofile"] = $userprofile;
+              $_SESSION["userprofile"] = $userProfile;
               $_SESSION["musicList"] = $musicList;
               $_SESSION["userMusic"] = $userMusic;
               $_SESSION["email"] = $_POST["email"];
@@ -102,7 +111,7 @@
               $this->redirect("welcome");
             }
             else {
-              echo '<script>alert("The username and password are incorrect.")</script>';
+              $_SESSION["message"] = "The username and password are incorrect.";
               $this->view("login");
             }
           }
@@ -144,17 +153,17 @@
 
             // Send password reset email.
             if($email->sendEmail($_POST["email"])) {
-              echo "<script>alert('E-mail has been sent!')</script>";
+              $_SESSION["message"] = "E-mail has been sent!";
               $_SESSION["mailSent"] = TRUE;
               $this->view("login");
             }
             else {
-              echo "<script>alert('E-mail could not be sent!')</script>";
+              $_SESSION["message"] = "E-mail could not be sent!";
               $this->view("forgetpassword");
             }
           }
           else {
-            echo '<script>alert("User does not exist.")</script>';
+            $_SESSION["message"] = "User does not exist.";
             $this->view("forgetpassword");
           }
         }
@@ -172,6 +181,7 @@
      * Function to load reset password page.
      */
     public function reset() {
+      
       // Check if password reset has been generated or not.
       if(isset($_SESSION["mailSent"]) && $_SESSION["mailSent"]) {
         if(isset($_POST["resetpassword"])) {
@@ -194,17 +204,17 @@
 
               // Check if user credentials has been updated.
               if($userDb->updateCredentials($_POST["email"], $_POST["password"])) {
-                echo '<script>alert("Password changed successfully.")</script>';
+                $_SESSION["message"] = "Password changed successfully.";
                 $_SESSION["mailSent"] = FALSE;
                 $this->view("login");
               }
               else {
-                echo '<script>alert("Error while updating password.")</script>';
+                $_SESSION["message"] = "Error while updating password.";
                 $this->view("resetpassword");
               }
             }
             else {
-              echo '<script>alert("User does not exist.")</script>';
+              $_SESSION["message"] = "User does not exist.";
               $this->view("resetpassword");
             }
           }

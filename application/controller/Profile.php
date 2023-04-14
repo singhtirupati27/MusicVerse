@@ -1,5 +1,6 @@
 <?php
   session_start();
+  $_SESSION["message"] = "";
 
   use App\Credentials;
 
@@ -12,7 +13,9 @@
      * Function load user profile update page.
      */
     public function update() {
-      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
+
+      // Check if user is already logged in or not.
+      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
 
         $credentials = new Credentials();
@@ -44,16 +47,16 @@
 
               // Check whether if profile has been updated in database or not.
               if($database->updateProfile($_SESSION["email"], $_POST["email"], $_POST["phone"], $_POST["genre"])) {
-                echo "<script>alert('Profile updated successfully!')</script>";
+                $_SESSION["message"] = "Profile updated successfully!";
                 $this->view("profileupdate");
               }
               else {
-                echo "<script>alert('Unable to update your profile!')</script>";
+                $_SESSION["message"] = "Unable to update your profile!";
                 $this->view("profileupdate");
               }
             }
             else {
-              echo "<script>alert('Invalid email')</script>";
+              $_SESSION["message"] = "Invalid email";
               $this->view("profileupdate");
             }
           }

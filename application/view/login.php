@@ -16,6 +16,9 @@
       <div class="login-container">
         <div class="page-wrapper login-content-wrap">
           <div class="login-content">
+            <div class="error-msg">
+              <span><?php if(isset($_SESSION["message"])) {echo $_SESSION["message"];} ?></span>
+            </div>
             <div class="logo">
               <img src="/public/img/logo.svg" alt="Music Verse">
             </div>

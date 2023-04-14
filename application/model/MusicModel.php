@@ -18,10 +18,10 @@
     /**
      * Function to upload music file.
      * 
-     *  @param string $musicFile
+     *  @param array $musicFile
      *    Contains music file path.
      */
-    public function uploadMusic(string $musicFile) {
+    public function uploadMusic(array $musicFile) {
       $this->musicFileLocation = $this->target_dir . basename($musicFile["name"]);
 
       $this->musicFileType = strtolower(pathinfo($this->musicFileLocation, PATHINFO_EXTENSION));
@@ -50,10 +50,10 @@
     /**
      * Function to upload cover image.
      * 
-     *  @param string $musicCover
+     *  @param array $musicCover
      *    Holds image path value.
      */
-    public function uploadCoverImage(string $musicCover) {
+    public function uploadCoverImage(array $musicCover) {
       $this->imageFileLocation = $this->img_target_dir . basename($musicCover["name"]);
 
       $this->imageFileType = strtolower(pathinfo($this->imageFileLocation, PATHINFO_EXTENSION));
@@ -93,8 +93,7 @@
         return $msg;
       }
       else {
-        $msg = "";
-        return $msg;
+        return "";
       }
     }
 

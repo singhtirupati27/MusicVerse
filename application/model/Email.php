@@ -59,47 +59,42 @@
      */
     public function sendEmail(string $email) {
 
-      /* Create an instance; passing `true` enables exceptions. */
+      // Create an instance; passing `true` enables exceptions.
       $mail = new PHPMailer(true);
 
-      /*
-       * Server settings
-       */
+      // Server settings
       try {
         
-        /* Enable verbose debug output. */
+        // Enable verbose debug output.
         $mail->SMTPDebug = 0;
         
-        /* Send using SMTP. */
+        // Send using SMTP.
         $mail->isSMTP();
         
-        /* Set the SMTP server to send through. */
+        // Set the SMTP server to send through.
         $mail->Host = 'smtp.gmail.com';
         
-        /* Enable SMTP authentication. */
+        // Enable SMTP authentication.
         $mail->SMTPAuth = TRUE;
         
-        /* SMTP username. */
+        // SMTP username.
         $mail->Username = 'photography.magnus22@gmail.com';
         
-        /* SMTP password. */
+        // SMTP password.
         $mail->Password = 'iqvmyqpvouuxxytc';
         
-        /* Enable implicit TLS encryption. */
+        // Enable implicit TLS encryption.
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         
-        /* TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`. */
+        // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`.
         $mail->Port = 465; 
       
-        /* Recipients email */
+        // Recipients email
         $mail->setFrom('from@example.com', 'Photography');
         $mail->addAddress($email);
         $mail->addReplyTo('info@example.com', 'Information');
       
-        /**
-         * Email contents
-         * Set email format to HTML
-         */
+        // Email contents, set email format to HTML.
         $mail->isHTML(true);
         $mail->Subject = 'Reset your password.';
         $mail->Body = 'Hi,<br><br>Forgot your password?<br>

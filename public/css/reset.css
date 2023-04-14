@@ -50,6 +50,12 @@ div, input {
   color: white;
 }
 
+.error-msg {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
 .logo {
   text-align: center;
 }

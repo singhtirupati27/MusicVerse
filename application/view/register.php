@@ -25,6 +25,9 @@
               </div>
             </div>
             <div class="right-container">
+              <div class="error-msg">
+                <span><?php if(isset($_SESSION["message"])) {echo $_SESSION["message"];} ?></span>
+              </div>
               <h2>Register</h2>
               
               <!-- Form container -->

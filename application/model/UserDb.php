@@ -94,6 +94,7 @@
 
       $query->execute();
 
+      // Check row count.
       if($query->rowCount() == 1) {
         return TRUE;
       }
@@ -116,6 +117,7 @@
       $query->bindParam(':phone', $phone);
       $query->execute();
 
+      // Check row count.
       if($query->rowCount() == 1) {
         return TRUE;
       }
@@ -225,8 +227,8 @@
      *  @param string $email
      *    Contains email id.
      * 
-     *  @return array
-     *    Return result in array.
+     *  @return mixed
+     *    Return result in array if found any record else faslse.
      */
     public function getUsername(string $email) {
       $query = $this->connectionData->prepare("SELECT user_name FROM user_info
@@ -352,6 +354,9 @@
       $genres = $this->genreString($genre);
 
       try {
+
+        // Check if music cover image empty.
+        // If music cover not uploaded then upload default cover.
         if($coverImage == "") {
           $query = $this->connectionData->prepare("INSERT INTO music(name, singer, genre, link, user_music_id)
             VALUES (:name, :singer, :genre, :link, :user_music_id)");
@@ -405,6 +410,9 @@
       $genres = $this->genreString($genre);
 
       try {
+
+        // Check if music cover image empty.
+        // If music cover not uploaded then upload default cover.
         if($coverImage == "") {
           $query = $this->connectionData->prepare("INSERT INTO user_music(user_id, name, singer, genre, link)
             VALUES (:userId, :name, :singer, :genre, :link)");
@@ -521,7 +529,7 @@
      *  @param string $singer
      *    Holds singer name value.
      * 
-     *  @return array
+     *  @return mixed
      */
     public function fetchMusicById(string $musicName, string $singer) {
       $query = $this->connectionData->prepare("SELECT user_music_id FROM user_music WHERE name = :musicName AND singer = :singer");
@@ -550,7 +558,9 @@
      *    True if music exists, false if not.
      */
     public function isMusicExists(int $userId, string $musicName, string $singer) {
-      if(empty($userId)) {
+
+      // Check for user uploaded music.
+      if($userId) {
         $query = $this->connectionData->prepare("SELECT name FROM music WHERE name = :musicName AND singer = :singer");
       }
       else {
@@ -562,6 +572,7 @@
       $query->bindParam(':singer', $singer);
       $query->execute();
 
+      // Check record row count.
       if($query->rowCount() >= 1) {
         return TRUE;
       }
@@ -644,6 +655,7 @@
       $query->bindParam(':musicId', $musicId);
       $query->execute();
 
+      // Check record row count.
       if($query->rowCount() >= 1) {
         return TRUE;
       }

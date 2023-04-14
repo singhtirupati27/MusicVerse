@@ -1,5 +1,6 @@
 <?php
   session_start();
+  $_SESSION["message"] = "";
 
   use App\Credentials;
 
@@ -12,7 +13,9 @@
      * Function to load user music upload page.
      */
     public function upload() {
-      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
+
+      // Check if user is already logged in or not.
+      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         if(isset($_POST["add-music"])) {
           $this->model("MusicModel");
           $this->model("UserDb");
@@ -37,9 +40,9 @@
           }
         
           // Check of uploaded music input field is ok.
-          if($music->uploadOk == 1) {
+          if($music->uploadOk) {
             $userMusicExists = $database->isMusicExists($userId, $_POST["music-name"], $_POST["singer"]);
-            $musicExists = $database->isMusicExists("", $_POST["music-name"], $_POST["singer"]);
+            $musicExists = $database->isMusicExists(1, $_POST["music-name"], $_POST["singer"]);
 
             // Check if music being uploaded already exists.
             if(!$userMusicExists && !$musicExists){
@@ -58,21 +61,21 @@
                   if(!empty($_FILES["cover-image"])) {
                     move_uploaded_file($_FILES["cover-image"]["tmp_name"], $music->imageFileLocation);
                   }
-                  echo "<script>alert('Music uploaded successfully!')</script>";
+                  $_SESSION["message"] = "Music uploaded successfully!";
                   $this->view("addmusic");
                 }
                 else {
-                  echo "<script>alert('Error occured while uploading!')</script>";
+                  $_SESSION["message"] = "Error occured while uploading!";
                   $this->view("addmusic");
                 }
               }
               else {
-                echo "<script>alert('Failed to upload music!')</script>";
+                $_SESSION["message"] = "Failed to upload music!";
                 $this->view("addmusic");
               }
             }
             else {
-              echo "<script>alert('Music already exists!')</script>";
+              $_SESSION["message"] = "Music already exists!";
               $this->view("addmusic");
             }
           }
@@ -98,7 +101,9 @@
      *    Hold current playing music id.
      */
     public function play(int $musicId) {
-      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] == TRUE) {
+
+      // Check if user is already logged in or not.
+      if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
 
         $credentials = new Credentials();

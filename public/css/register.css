@@ -55,6 +55,12 @@ a {
   transform: translateY(-50%);
 }
 
+.error-msg {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
 .left-container {
   display: flex;
   width: 50%;

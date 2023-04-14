@@ -6,6 +6,9 @@
 <div class="banner-container">
   <div class="page-wrapper banner-wrap">
     <div class="profile-content">
+      <div class="error-msg">
+        <span><?php if(isset($_SESSION["message"])) {echo $_SESSION["message"];} ?></span>
+      </div>
       <div class="title-head">
         <h1>Profile Update</h1>
       </div>

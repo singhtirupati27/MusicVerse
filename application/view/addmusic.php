@@ -5,6 +5,9 @@
 <div class="banner-container">
   <div class="page-wrapper banner-wrap">
     <div class="addmusic-content">
+      <div class="error-msg">
+        <span><?php if(isset($_SESSION["message"])) {echo $_SESSION["message"];} ?></span>
+      </div>
       <div class="title-head">
         <h1>Add Music</h1>
       </div>

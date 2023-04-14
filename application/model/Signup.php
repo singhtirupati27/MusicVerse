@@ -184,7 +184,7 @@
       $this->validatePassword($user_data["password"]);
       $this->matchPassword($user_data["password"], $user_data["cnfpassword"]);
 
-      if($this->dataValid == 1) {
+      if($this->dataValid) {
         return TRUE;
       }
       else {
