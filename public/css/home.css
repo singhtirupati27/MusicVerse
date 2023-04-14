@@ -330,6 +330,9 @@ audio {
 /* Playback container */
 .playback-container {
   height: 825px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .playback-wrap {

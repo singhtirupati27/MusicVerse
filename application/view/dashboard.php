@@ -7,9 +7,9 @@
   <div class="page-wrapper dashboard-wrap">
     <div class="dashboard-content">
       <?php
-        $usermusic = $_SESSION["userMusic"];
-        $userprofile = $_SESSION["userprofile"];
-        $userfavourite = $_SESSION["userfavourite"];
+        $userMusic = $_SESSION["userMusic"];
+        $userProfile = $_SESSION["userProfile"];
+        $userFavourite = $_SESSION["userFavourite"];
       ?>
 
       <div class="user-profile">
@@ -19,7 +19,7 @@
               <h3>Name:</h3>
             </div>
             <div class="info-flex-box">
-              <h3><?php echo $userprofile[0]["user_name"]; ?></h3>
+              <h3><?php echo $userProfile[0]["user_name"]; ?></h3>
             </div>
           </div>
           <div class="info-box">
@@ -27,7 +27,7 @@
               <h3>Gender:</h3>
             </div>
             <div class="info-flex-box">
-              <h3><?php echo $userprofile[0]["user_gender"]; ?></h3>
+              <h3><?php echo $userProfile[0]["user_gender"]; ?></h3>
             </div>
           </div>
           <div class="info-box">
@@ -35,7 +35,7 @@
               <h3>Phone:</h3>
             </div>
             <div class="info-flex-box">
-              <h3><?php echo $userprofile[0]["user_phone"]; ?></h3>
+              <h3><?php echo $userProfile[0]["user_phone"]; ?></h3>
             </div>
           </div>
           <div class="info-box">
@@ -43,7 +43,7 @@
               <h3>Email:</h3>
             </div>
             <div class="info-flex-box">
-              <h3><?php echo $userprofile[0]["user_email"]; ?></h3>
+              <h3><?php echo $userProfile[0]["user_email"]; ?></h3>
             </div>
           </div>
           <div class="info-box">
@@ -51,7 +51,7 @@
               <h3>Interests:</h3>
             </div>
             <div class="info-flex-box">
-              <h3><?php echo $userprofile[0]["user_interest"]; ?></h3>
+              <h3><?php echo $userProfile[0]["user_interest"]; ?></h3>
             </div>
           </div>
         </div>
@@ -71,8 +71,8 @@
       <div class="music-list">
         <h2>Your uploads</h2>
         <?php
-          if(!empty($usermusic)) {
-          foreach($usermusic as $value) {
+          if(!empty($userMusic)) {
+          foreach($userMusic as $value) {
         ?>
 
         <div class="music-box">
@@ -113,8 +113,8 @@
       <div class="music-list favourites">
         <h2>Favourites</h2>
         <?php
-          if(!empty($userfavourite)) {
-          foreach($userfavourite as $value) {
+          if(!empty($userFavourite)) {
+          foreach($userFavourite as $value) {
         ?>
 
         <div class="music-box">

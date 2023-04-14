@@ -59,9 +59,9 @@
         $userMusic = $userDb->getUserMusic($userId);
         $userFavourite = $userDb->getFavourite($userId);
 
-        $_SESSION["userprofile"] = $userProfile;
+        $_SESSION["userProfile"] = $userProfile;
         $_SESSION["userMusic"] = $userMusic;
-        $_SESSION["userfavourite"] = $userFavourite;
+        $_SESSION["userFavourite"] = $userFavourite;
 
         $this->view("dashboard");
       }
@@ -100,11 +100,11 @@
               $userId = $userDb->getUserId($_POST["email"]);
               $userMusic = $userDb->getUserMusic($userId);
 
-              $_SESSION["userprofile"] = $userProfile;
+              $_SESSION["userProfile"] = $userProfile;
               $_SESSION["musicList"] = $musicList;
               $_SESSION["userMusic"] = $userMusic;
               $_SESSION["email"] = $_POST["email"];
-              $_SESSION["userid"] = $userId;
+              $_SESSION["userId"] = $userId;
               $_SESSION["username"] = $userDb->getUsername($_POST["email"]);
               $_SESSION["loggedIn"] = TRUE;
 

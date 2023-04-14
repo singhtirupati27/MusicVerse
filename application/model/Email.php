@@ -17,6 +17,11 @@
    * and send email to reset password.
    */
   class Email {
+
+    /**
+     *  @var string $emailErr
+     *    Stores email error messages.
+     */
     public string $emailErr = "";
 
     /**
@@ -81,7 +86,7 @@
         $mail->Username = 'photography.magnus22@gmail.com';
         
         // SMTP password.
-        $mail->Password = 'iqvmyqpvouuxxytc';
+        $mail->Password = $_ENV["EMAIL_PASSWORD"];
         
         // Enable implicit TLS encryption.
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;

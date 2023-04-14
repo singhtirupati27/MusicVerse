@@ -6,12 +6,7 @@
 ?>
 
 <!-- Playback container -->
-<div class="playback-container" 
-  style="background: linear-gradient( #5ddcff5e, #3c67e35c, #4e00c070), url('/<?php echo $music["cover_img"]; ?>'); 
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;">
-
+<div class="playback-container" style="background-image: linear-gradient( #5ddcff5e, #3c67e35c, #4e00c070), url('/<?php echo $music["cover_img"]; ?>');">
   <div class="page-wrapper playback-wrap">
     <div class="playback-content">
       <div class="head-text">

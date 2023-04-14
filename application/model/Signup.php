@@ -5,13 +5,53 @@
    * their error messages.
    */
   class Signup {
+
+    /**
+     *  @var string $nameErr
+     *    Holds error message while checking name.
+     */
     public string $nameErr = "";
+
+    /**
+     *  @var string $genderErr
+     *    Holds gender error message while checking gender field data.
+     */
     public string $genderErr = "";
+
+    /**
+     *  @var string $interestErr
+     *    Holds interest error message while checking interest field data.
+     */
     public string $interestErr = "";
+
+    /**
+     *  @var string $phoneErr
+     *    Holds error message while checking phone number.
+     */
     public string $phoneErr = "";
+
+    /**
+     *  @var string $emailErr
+     *    Holds error message while checking email.
+     */
     public string $emailErr = "";
+
+    /**
+     *  @var string $passwordErr
+     *    Holds error message while checking password pattern.
+     */
     public string $passwordErr = "";
+
+    /**
+     *  @var string $cnfpasswordErr
+     *    Holds error message while checking confirm password pattern.
+     */
     public string $cnfpasswordErr = "";
+
+    /**
+     *  @var int $dataValid
+     *    Stores 1 if all data fields are valid, 0 if not.
+     */
     public int $dataValid = 1;
 
     /**
@@ -31,7 +71,7 @@
         $this->dataValid = 0;
         return FALSE;
       }
-      elseif(!preg_match("/^[a-zA-Z-' ]+$/", $name)) {
+      else if(!preg_match("/^[a-zA-Z-' ]+$/", $name)) {
         $this->nameErr = "Only characters are allowed!";
         $this->dataValid = 0;
         return FALSE;
@@ -82,7 +122,7 @@
         $this->dataValid = 0;
         return FALSE;
       }
-      elseif(!preg_match("/^(\+91)[0-9]{10}$/", $phone)) {
+      else if(!preg_match("/^(\+91)[0-9]{10}$/", $phone)) {
         $this->phoneErr = "Invalid phone number!";
         $this->dataValid = 0;
         return FALSE;
@@ -125,11 +165,11 @@
         $this->passwordErr = "Password cannot be empty.";
         $this->dataValid = 0;
       }
-      elseif (!strlen($password) >= 8 && strlen($password) <= 15) {
+      else if (!strlen($password) >= 8 && strlen($password) <= 15) {
         $this->passwordErr = "Password length must be greater than 8 characters.";
         $this->dataValid = 0;
       }
-      elseif(!preg_match($pattern, $password)) {
+      else if(!preg_match($pattern, $password)) {
         $this->passwordErr = "Password must contain at least one lower, one upper, one numeric and one special character";
         $this->dataValid = 0;
       }
@@ -156,7 +196,7 @@
         $this->dataValid = 0;
         return FALSE;
       }
-      elseif($password != $cnfpassword) {
+      else if($password != $cnfpassword) {
         $this->cnfpasswordErr = "Password do not match.";
         $this->dataValid = 0;
         return FALSE;

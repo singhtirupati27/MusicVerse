@@ -1,5 +1,5 @@
 <?php
-  $music = $_SESSION["loadmusic"];
+  $music = $_SESSION["loadMusic"];
   $num_of_rows = $_SESSION["rowCount"];
 
   $page = "";

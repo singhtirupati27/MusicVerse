@@ -24,7 +24,7 @@
         $data = $database->fetchUserProfile($_SESSION["email"]);
 
         $_SESSION["email"] = $data[0]["user_email"];
-        $_SESSION["userphone"] = $data[0]["user_phone"];
+        $_SESSION["userPhone"] = $data[0]["user_phone"];
 
         if(isset($_POST["update-profile"])) {
           $this->model("Email");

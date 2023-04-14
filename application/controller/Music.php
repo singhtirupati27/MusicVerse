@@ -108,7 +108,7 @@
 
         $credentials = new Credentials();
         $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
-        $isFav = $database->isFavourite($_SESSION["userid"], $musicId);
+        $isFav = $database->isFavourite($_SESSION["userId"], $musicId);
         $music = $database->requestMusic();
 
         $_SESSION["isFav"] = $isFav;
@@ -131,7 +131,7 @@
       $music = $database->musicList();
       $rowCount = $database->calculateRows("music");
 
-      $_SESSION["loadmusic"] = $music;
+      $_SESSION["loadMusic"] = $music;
       $_SESSION["rowCount"] = $rowCount;     
 
       return ($this->view("music"));
@@ -146,7 +146,7 @@
       $credentials = new Credentials();
       $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
 
-      $fav = $database->favourite($_SESSION["userid"], $_SESSION["currentMusicId"]);
+      $fav = $database->favourite($_SESSION["userId"], $_SESSION["currentMusicId"]);
 
       echo $fav;
     }

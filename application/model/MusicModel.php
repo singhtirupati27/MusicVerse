@@ -4,15 +4,57 @@
    * This class contains methods to upload music in database.
    */
   class MusicModel {
+
+    /**
+     *  @var int $uploadOk
+     *    Hold value 1 if all fields are valid, 0 if not.
+     */
     public int $uploadOk = 1;
+
+    /**
+     *  @var string $uploadErr
+     *    Stores music upload error message.
+     */
     public string $uploadErr = "";
+
+    /**
+     *  @var string $uploadImgErr
+     *    Stores image upload error message.
+     */
     public string $uploadImgErr = "";
-    public string $target_dir = "public/music/usermusic/";
+
+    /**
+     * Initializing TARGET_DIR with directory path to upload music.
+     */
+    const TARGET_DIR = "public/music/usermusic/";
+
+    /**
+     *  @var string $musicFileLocation
+     *    Holds music uploaded location with music file name.
+     */
     public string $musicFileLocation = "";
+
+    /**
+     *  @var string $musicFileType
+     *    Stores music file extension.
+     */
     public string $musicFileType;
-    public string $imgUploadErr = "";
-    public string $img_target_dir = "public/music/coverimage/";
+
+    /**
+     * Initializing IMG_TARGET_DIR with directory path to upload cover image. 
+     */
+    const IMG_TARGET_DIR = "public/music/coverimage/";
+
+    /**
+     *  @var string $imageFileLocation
+     *    Holds cover image uploaded location with image file name.
+     */
     public string $imageFileLocation = "";
+
+    /**
+     *  @var string $imageFileType
+     *    Stores image file extension.
+     */
     public string $imageFileType;
     
     /**
@@ -22,7 +64,8 @@
      *    Contains music file path.
      */
     public function uploadMusic(array $musicFile) {
-      $this->musicFileLocation = $this->target_dir . basename($musicFile["name"]);
+      // $this->musicFileLocation = $this->target_dir . basename($musicFile["name"]);
+      $this->musicFileLocation = self::TARGET_DIR . basename($musicFile["name"]);
 
       $this->musicFileType = strtolower(pathinfo($this->musicFileLocation, PATHINFO_EXTENSION));
       
@@ -54,7 +97,8 @@
      *    Holds image path value.
      */
     public function uploadCoverImage(array $musicCover) {
-      $this->imageFileLocation = $this->img_target_dir . basename($musicCover["name"]);
+      // $this->imageFileLocation = $this->img_target_dir . basename($musicCover["name"]);
+      $this->imageFileLocation = self::IMG_TARGET_DIR . basename($musicCover["name"]);
 
       $this->imageFileType = strtolower(pathinfo($this->imageFileLocation, PATHINFO_EXTENSION));
 
@@ -89,8 +133,7 @@
     public function isEmpty(string $name) {
       if(empty($name)) {
         $this->uploadOk = 0;
-        $msg = "Field cannot be empty";
-        return $msg;
+        return "Field cannot be empty";
       }
       else {
         return "";

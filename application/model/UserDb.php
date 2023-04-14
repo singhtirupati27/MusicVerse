@@ -5,12 +5,30 @@
    * This class have methods to insert and update data in databse.
    */
   class UserDb {
+
+    /**
+     *  @var string $dbName
+     *    Contains database name.
+     */
     public string $dbName;
+
+    /**
+     *  @var string $dbUsername
+     *    Contains database username.
+     */
     public string $dbUsername;
+
+    /**
+     *  @var string $dbPassword
+     *    Stores database user password.
+     */
     public string $dbPassword;
+
+    /**
+     *  @var object $connectionData
+     *    Holds database connection object.
+     */
     public object $connectionData;
-    public string $username;
-    public string $password;
 
     /**
      * It will initialize UserDb class with databasename, username and password.
