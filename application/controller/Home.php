@@ -2,8 +2,6 @@
   session_start();
   $_SESSION["message"] = "";
 
-  use App\Credentials;
-
   /**
    * Home controller class to load home, login, dashboard, forget password
    * and sign out page.
@@ -32,8 +30,7 @@
       // Check if user is already logged in or not.
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
-        $credentials = new Credentials();
-        $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+        $userDb = new UserDb();
         $musicList = $userDb->requestMusic();
         $_SESSION["musicList"] = $musicList;
 
@@ -52,8 +49,7 @@
       // Check if user is already logged in or not.
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
-        $credentials = new Credentials();
-        $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+        $userDb = new UserDb();
         $userId = $userDb->getUserId($_SESSION["email"]);
         $userProfile = $userDb->fetchUserProfile($_SESSION["email"]);
         $userMusic = $userDb->getUserMusic($userId);
@@ -83,8 +79,7 @@
         if(isset($_POST["login"])) {
           $this->model("UserDb");
           $this->model("Signup");
-          $credentials = new Credentials();
-          $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+          $userDb = new UserDb();
           $validateSignup = new Signup();
   
           $validateSignup->validateEmail($_POST["email"]);
@@ -138,8 +133,7 @@
         $this->model("Signup");
         $this->model("Email");
 
-        $credentials = new Credentials();
-        $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+        $userDb = new UserDb();
         $validateSignup = new Signup();
         $email = new Email();
 
@@ -188,8 +182,7 @@
           $this->model("UserDb");
           $this->model("Signup");
 
-          $credentials = new Credentials();
-          $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+          $userDb = new UserDb();
           $validateSignup = new Signup();
 
           $validateSignup->validateEmail($_POST["email"]);
@@ -197,7 +190,9 @@
           $validateSignup->matchPassword($_POST["password"], $_POST["cnfpassword"]);
 
           // Check if email and password fields are valid.
-          if($validateSignup->emailErr == "" && $validateSignup->passwordErr == "" && $validateSignup->cnfpasswordErr == "") {
+          if($validateSignup->emailErr == ""
+              && $validateSignup->passwordErr == ""
+              && $validateSignup->cnfpasswordErr == "") {
 
             // Check if user email already exists or not in database.
             if($userDb->checkUserNameExists($_POST["email"])) {

@@ -91,7 +91,8 @@
         // Enable implicit TLS encryption.
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         
-        // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`.
+        // TCP port to connect to; use 587 if you have set
+        // `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`.
         $mail->Port = 465; 
       
         // Recipients email

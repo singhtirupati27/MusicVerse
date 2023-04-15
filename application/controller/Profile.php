@@ -2,8 +2,6 @@
   session_start();
   $_SESSION["message"] = "";
 
-  use App\Credentials;
-
   /**
    * Profile controller class to update user profile.
    */
@@ -18,8 +16,7 @@
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
 
-        $credentials = new Credentials();
-        $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+        $database = new UserDb();
         
         $data = $database->fetchUserProfile($_SESSION["email"]);
 
@@ -36,11 +33,14 @@
           $validateData->validateEmail($_POST["email"]);
           $validateData->validateContact($_POST["phone"]);
           $validateData->validateInterest($_POST);
+          
           // Disabled email verification using api as it taking time to receive response.
           // $email->verifyEmail($_POST["email"]);
 
           // Check if input fields are in valid format or not.
-          if($validateData->emailErr == "" && $validateData->phoneErr == "" && $validateData->interestErr == "") {
+          if($validateData->emailErr == ""
+              && $validateData->phoneErr == ""
+              && $validateData->interestErr == "") {
 
             // Verify whether email is working or not.
             if($email->emailErr == "") {

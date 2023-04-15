@@ -1,5 +1,11 @@
-// Load music page
 $(document).ready(function() {
+
+  /**
+   * Function to load music on page load and add pagination to load more music.
+   * 
+   *  @param int page
+   *    Holds page number to be display.
+   */
   function loadMusic(page) {
     $.ajax({
       url: "/music/loadMore",
@@ -13,17 +19,18 @@ $(document).ready(function() {
 
   loadMusic();
 
-  // Pagination
+  // It will page number to be loaded.
   $(document).on("click", "#pagination a", function(e) {
     e.preventDefault();
     var page_id = $(this).attr("id");
 
     loadMusic(page_id);
   });
-});
 
-// Add to Favourite
-$(document).ready(function() {
+  /**
+   * This function will add music to user favourite list or remove music from
+   * favourite list.
+   */
   function favourite() {
     $.ajax({
       url: "/music/favourites",
@@ -44,5 +51,5 @@ $(document).ready(function() {
   $(document).on("click", "#fav-btn", function(e) {
     e.preventDefault();
     favourite();
-  })
+  });
 });

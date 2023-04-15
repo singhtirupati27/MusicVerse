@@ -64,7 +64,6 @@
      *    Contains music file path.
      */
     public function uploadMusic(array $musicFile) {
-      // $this->musicFileLocation = $this->target_dir . basename($musicFile["name"]);
       $this->musicFileLocation = self::TARGET_DIR . basename($musicFile["name"]);
 
       $this->musicFileType = strtolower(pathinfo($this->musicFileLocation, PATHINFO_EXTENSION));
@@ -79,7 +78,9 @@
         }
   
         // Check for file extension format.
-        if($this->musicFileType != "mp3" && $this->musicFileType != "wav" && $this->musicFileType != "ogg") {
+        if($this->musicFileType != "mp3"
+            && $this->musicFileType != "wav"
+            && $this->musicFileType != "ogg") {
           $this->uploadErr = "Sorry, only MP3, WAV and OGG music file allowed.";
           $this->uploadOk = 0;
         }
@@ -97,7 +98,6 @@
      *    Holds image path value.
      */
     public function uploadCoverImage(array $musicCover) {
-      // $this->imageFileLocation = $this->img_target_dir . basename($musicCover["name"]);
       $this->imageFileLocation = self::IMG_TARGET_DIR . basename($musicCover["name"]);
 
       $this->imageFileType = strtolower(pathinfo($this->imageFileLocation, PATHINFO_EXTENSION));
@@ -112,7 +112,10 @@
         }
   
         // Check for file extension format.
-        if($this->imageFileType != "jpg" && $this->imageFileType != "png" && $this->imageFileType != "jpeg" && $this->imageFileType != "gif") {
+        if($this->imageFileType != "jpg"
+            && $this->imageFileType != "png"
+            && $this->imageFileType != "jpeg"
+            && $this->imageFileType != "gif") {
           $this->uploadImgErr = "Sorry, only JPG, PNG, JPEG and GIF file allowed.";
           $this->uploadOk = 0;
         }

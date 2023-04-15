@@ -1,8 +1,6 @@
 <?php
 
   $_SESSION["message"] = "";
-
-  use App\Credentials;
   
   /**
    * Register controller class contains methods to register
@@ -19,12 +17,13 @@
         $this->model("UserDb");
         $this->model("Email");
 
-        $credentials = new Credentials();
-        $userDb = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+        $userDb = new UserDb();
         $emailVerify = new Email();
         $validateSignup = new Signup();
 
         $registerOk = $validateSignup->checkRegistration($_POST);
+
+        // Disabled email verification using api as it taking time to receive response.
         // $emailVerify->verifyEmail($_POST["email"]);
 
         // Check for input fields are valid or not.
@@ -34,7 +33,8 @@
           if($emailVerify->emailErr == "") {
 
             // Check if user already register or not.
-            if(!$userDb->checkUserNameExists($_POST["email"]) && !$userDb->checkUserContactExists($_POST["phone"])) {
+            if(!$userDb->checkUserNameExists($_POST["email"])
+                && !$userDb->checkUserContactExists($_POST["phone"])) {
 
               // Check if user has been register or not.
               if($userDb->registerUser($_POST)) {

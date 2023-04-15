@@ -1,5 +1,7 @@
 <?php
 
+  use App\Credentials;
+
   /**
    * UserDb class hold database data.
    * This class have methods to insert and update data in databse.
@@ -31,21 +33,14 @@
     public object $connectionData;
 
     /**
-     * It will initialize UserDb class with databasename, username and password.
-     * 
-     *  @param string $dbName
-     *    Contains database name to be used.
-     * 
-     *  @param string $username
-     *    Contains username of the database.
-     * 
-     *  @param string $password
-     *    Contains password of the database.
+     * Constructor to initialize UserDb class with databasename, username and 
+     * password.
      */
-    public function __construct(string $dbName, string $username, string $password) {
-      $this->dbName = $dbName;
-      $this->dbUsername = $username;
-      $this->dbPassword = $password;
+    public function __construct() {
+      $credentials = new Credentials();
+      $this->dbName = $_ENV['DBNAME'];
+      $this->dbUsername = $_ENV['USERNAME'];
+      $this->dbPassword = $_ENV['PASSWORD'];
       $this->databaseConnet();
     }
 
@@ -70,7 +65,8 @@
     }
 
     /**
-     * Function to check whether login email and password exist in the database or not.
+     * Function to check whether login email and password exist in the database
+     * or not.
      * 
      *  @param string $username
      *    Contains user email used for login.
@@ -98,7 +94,8 @@
     }
 
     /**
-     * Function to check whether username or email exists in the database or not.
+     * Function to check whether username or email exists in the database or
+     * not.
      * 
      *  @param string $email
      *    Contains user email used for login.
@@ -154,7 +151,8 @@
      *    Contains user login new password.
      *
      *  @return bool
-     *    It will return TRUE if query has been executed successfully, FALSE if not.
+     *    It will return TRUE if query has been executed successfully,
+     *    FALSE if not.
      */
     public function updateCredentials(string $email, string $newPassword) {
       $query = $this->connectionData->prepare("UPDATE admin SET user_password = :newPassword WHERE user_email = :email");
@@ -180,7 +178,8 @@
      *    Contains user new interest.
      *
      *  @return bool
-     *    It will return TRUE if query has been executed successfully, FALSE if not.
+     *    It will return TRUE if query has been executed successfully,
+     *    FALSE if not.
      */
     public function updateProfile(string $email, string $newEmail, string $contact, array $interest) {
       $genre = $this->genreString($interest);
@@ -208,7 +207,8 @@
      *    Contains user all data.
      * 
      *  @return bool
-     *    It will return TRUE if query has been executed successfully, FALSE if email already exists.
+     *    It will return TRUE if query has been executed successfully,
+     *    FALSE if email already exists.
      */
     public function registerUser(array $user_data) {
       $genre = $this->genreString($user_data["genre"]);

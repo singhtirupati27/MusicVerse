@@ -1,6 +1,15 @@
 /**
  * Function make button active.
  * It will change text color and button background color.
+ * 
+ *  @param string nameId
+ *    Holds element id of the field need to be validate.
+ * 
+ *  @param string msgId
+ *    Holds element id of the field in which error message will be shown.
+ * 
+ *  @param string btnId
+ *    Holds element id of the submit button.
  */
 function validInput(nameId, msgId, btnId) {
   document.getElementById(nameId).style.color = 'green';
@@ -12,6 +21,12 @@ function validInput(nameId, msgId, btnId) {
 /**
  * Function make button inactive.
  * It will change text color and button background color.
+ * 
+ *  @param string nameId
+ *    Holds element id of the field need to be validate.
+ * 
+ *  @param string btnId
+ *    Holds element id of the submit button.
  */
 function invalidInput(nameId, btnId) {
   document.getElementById(nameId).style.color = 'red';
@@ -22,6 +37,12 @@ function invalidInput(nameId, btnId) {
 /**
  * Function to check store message for empty field
  * and make button disable.
+ * 
+ *  @param string msgId
+ *    Holds element id of the field in which error message will be shown.
+ * 
+ *  @param string btnId
+ *    Holds element id of the submit button.
  */
 function emptyField(msgId, btnId) {
   document.getElementById(msgId).innerHTML = "Field cannot be empty";

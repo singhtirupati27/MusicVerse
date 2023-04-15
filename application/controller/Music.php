@@ -2,8 +2,6 @@
   session_start();
   $_SESSION["message"] = "";
 
-  use App\Credentials;
-
   /**
    * Music controller class to upload, play and add to favourite music.
    */
@@ -21,8 +19,7 @@
           $this->model("UserDb");
         
           $music = new MusicModel();
-          $credentials = new Credentials();
-          $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+          $database = new UserDb();
         
           $userId = $database->getUserId($_SESSION["email"]);
           $music->uploadMusic($_FILES["music-file"]);
@@ -106,8 +103,7 @@
       if(isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"]) {
         $this->model("UserDb");
 
-        $credentials = new Credentials();
-        $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+        $database = new UserDb();
         $isFav = $database->isFavourite($_SESSION["userId"], $musicId);
         $music = $database->requestMusic();
 
@@ -126,8 +122,7 @@
      */
     public function loadMore() {
       $this->model("UserDb");
-      $credentials = new Credentials();
-      $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+      $database = new UserDb();
       $music = $database->musicList();
       $rowCount = $database->calculateRows("music");
 
@@ -143,8 +138,7 @@
     public function favourites() {
       $this->model("UserDb");
 
-      $credentials = new Credentials();
-      $database = new UserDb($_ENV['DBNAME'], $_ENV['USERNAME'], $_ENV['PASSWORD']);
+      $database = new UserDb();
 
       $fav = $database->favourite($_SESSION["userId"], $_SESSION["currentMusicId"]);
 
