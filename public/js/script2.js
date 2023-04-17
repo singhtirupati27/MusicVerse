@@ -48,6 +48,7 @@ $(document).ready(function() {
     });
   }
 
+  // Favourite button to add or remove favourite music.
   $(document).on("click", "#fav-btn", function(e) {
     e.preventDefault();
     favourite();

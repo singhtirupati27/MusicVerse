@@ -119,6 +119,9 @@
 
     /**
      * Function load music page with load more button.
+     * 
+     *  @return response
+     *    It will return html page with music list with pagination.
      */
     public function loadMore() {
       $this->model("UserDb");

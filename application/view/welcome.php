@@ -1,6 +1,5 @@
 <?php
   require 'application/view/header.php';
-
   require 'application/view/content.php';
 ?>
 
