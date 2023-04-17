@@ -410,6 +410,14 @@ audio {
   transform: scale(.95);
 }
 
+.liked {
+  color: red;
+}
+
+.unliked {
+  color: white;
+}
+
 /* Dashboard container */ 
 .dashboard-wrap {
   position: relative;
@@ -455,6 +463,10 @@ audio {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.upload h3 {
+  color: white;
 }
 
 /* Favourite container */

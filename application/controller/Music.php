@@ -18,7 +18,10 @@
           $this->model("MusicModel");
           $this->model("UserDb");
         
+          // Creating MusicModel object to upload music.
           $music = new MusicModel();
+
+          // Creating database object to access data from database.
           $database = new UserDb();
         
           $userId = $database->getUserId($_SESSION["email"]);
@@ -140,11 +143,8 @@
      */
     public function favourites() {
       $this->model("UserDb");
-
       $database = new UserDb();
-
       $fav = $database->favourite($_SESSION["userId"], $_SESSION["currentMusicId"]);
-
       echo $fav;
     }
 

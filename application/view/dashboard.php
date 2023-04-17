@@ -138,7 +138,7 @@
         ?>
 
         <div class="upload">
-          <h3 style="color: white">You have no favourite music.</h3>
+          <h3>You have no favourite music.</h3>
         </div>
         
         <?php

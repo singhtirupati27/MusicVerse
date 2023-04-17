@@ -38,7 +38,7 @@
           if (isset($_SESSION["isFav"]) && $_SESSION["isFav"]) {
         ?>
         <div class="favourite-btn" id="fav">
-          <a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x" style="color:red;"></i></a>
+          <a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x liked"></i></a>
         </div>
         <?php
           }
@@ -46,7 +46,7 @@
             echo $_SESSION["isFav"];
         ?>
         <div class="favourite-btn" id="fav">
-          <a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x" style="color:white;";></i></a>
+          <a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x unliked"></i></a>
         </div>
         <?php
           }

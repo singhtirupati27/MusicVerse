@@ -38,10 +38,10 @@ $(document).ready(function() {
       success: function(data) {
         var favbutton;
         if(data == 1) {
-          favbutton = '<a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x" style="color:red;"></a>';
+          favbutton = '<a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x liked"></a>';
         }
         else {
-          favbutton = '<a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x" style="color:white;"></a>';
+          favbutton = '<a href="/music/favourites" id="fav-btn"><i class="fa fa-heart fa_custom fa-2x unliked"></a>';
         }
         $("#fav").html(favbutton);
       }

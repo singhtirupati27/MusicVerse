@@ -1,15 +1,13 @@
 <?php
 
-  /**
-   * Import PHPMailer classes into the global namespace.
-   * These must be at the top of your script, not inside a function
-   */
+  // Import PHPMailer classes into the global namespace.
+  // These must be at the top of your script, not inside a function
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\SMTP;
   use PHPMailer\PHPMailer\Exception;
   use App\Credentials;
 
-  /* Load Composer's autoloader. */
+  // Load Composer's autoloader.
   require 'vendor/autoload.php';
 
   /**
@@ -33,6 +31,8 @@
      *    In this function email is passed as parameter.
      */
     public function verifyEmail(string $email) {
+
+      // Creating Credentials class object to access credentials.
       $credentials = new Credentials();
       $client = new \GuzzleHttp\Client();
       
@@ -41,7 +41,6 @@
       );
       
       $responseReceived = $response->getBody();
-
       $validationResult = json_decode($responseReceived, true);
 
       // Check whether email format and smtp_check is valid or not.
@@ -83,7 +82,7 @@
         $mail->SMTPAuth = TRUE;
         
         // SMTP username.
-        $mail->Username = 'photography.magnus22@gmail.com';
+        $mail->Username = $_ENV["EMAIL"];
         
         // SMTP password.
         $mail->Password = $_ENV["EMAIL_PASSWORD"];
