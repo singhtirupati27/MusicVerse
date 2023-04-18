@@ -23,6 +23,8 @@
       $_ENV['PASSWORD'];
       $_ENV['DBNAME'];
       $_ENV['APIKEY'];
+      $_ENV['EMAIL_PASSWORD'];
+      $_ENV['EMAIL'];
     }
 
   }
